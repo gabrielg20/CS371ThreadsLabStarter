@@ -8,6 +8,8 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 /**
  * AnimationView
  *
@@ -77,9 +79,18 @@ public class AnimationView extends SurfaceView{
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        for(Animation anim : anims) {
+        for (Animation anim : anims) {
             anim.draw(canvas);
         }
+        /*try {
+            // Sleep 0.5-1.5 seconds
+            sleep(3000);
+        }
+        catch(InterruptedException e)
+        {
+            // nothing :-D
+        }
+        this.postInvalidate();*/
     }//draw
 
     /** This method is called each time the seekbar's progress changes.  This will always be a

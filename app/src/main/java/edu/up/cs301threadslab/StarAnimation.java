@@ -16,6 +16,9 @@ public class StarAnimation extends Animation {
 
     /* the field of stars */
     public static final int INIT_STAR_COUNT = 100;
+    public static final int MAX_STAR_COUNT = 1000;
+    public static int numStars = INIT_STAR_COUNT;
+    public static int nextNumStars = INIT_STAR_COUNT;
     private Vector<Star> field = new Vector<Star>();
 
     /* when this is set to 'false' the next animation frame won't twinkle */
@@ -62,20 +65,37 @@ public class StarAnimation extends Animation {
     @Override
     public void draw(Canvas canvas) {
         for (Star s : field) {
-            s.draw(canvas);
-            if (this.twinkle) {
-                s.twinkle();
+                s.draw(canvas);
+                if (this.twinkle) {
+                    s.twinkle();
+                }
             }
-        }
-
         this.twinkle = true;
     }//draw
 
     /** the seekbar progress specifies the brightnes of the stars. */
     @Override
     public void progressChange(int newProgress) {
+
+
+        nextNumStars = 100 + newProgress*9;
+
+        if(nextNumStars > numStars) {
+            for (int i = numStars; i < nextNumStars; i++)
+                addStar();
+        }
+        else{
+            for (int i = numStars; i > nextNumStars; i--)
+                removeStar();
+        }
+        numStars = nextNumStars;
+        this.twinkle = false;
+
+
+        /*
         int brightness = 255 - (newProgress * 2);
         Star.starPaint.setColor(Color.rgb(brightness, brightness, brightness));
         this.twinkle = false;
+        */
     }
 }//class StarAnimation

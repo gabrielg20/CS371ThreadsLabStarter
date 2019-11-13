@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import static java.lang.Thread.sleep;
+
 /**
  * This application displays several animations.  It is used for the threads lab in CS371.
  *
@@ -17,8 +19,10 @@ public class MainActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private AnimationView myAV;
+    private SecondThread secondAV;
     private Button theButton;
     private SeekBar theSeekBar;
+    private boolean ANIMATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class MainActivity extends Activity
         //Setup the animation(s)
         myAV = (AnimationView)findViewById(R.id.animationArea);
         myAV.addAnimation(new StarAnimation(myAV.getMyWidth(), myAV.getMyHeight()));
+        secondAV =  new SecondThread(myAV);
 
         //Let me know when someone taps the button
         theButton = (Button)findViewById(R.id.button);
@@ -35,7 +40,10 @@ public class MainActivity extends Activity
 
         //Let me know when someone adjusts the seekbar
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
+        secondAV.start();
         theSeekBar.setOnSeekBarChangeListener(this);
+        ANIMATE = true;
+        //myAV.postInvalidate();
     }//onClick
 
     @Override
@@ -54,4 +62,21 @@ public class MainActivity extends Activity
     public void onStartTrackingTouch(SeekBar seekBar) {}
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+    /*@Override
+    public void run()
+    {
+        while(ANIMATE)
+        {
+            try {
+                // Sleep 0.5-1.5 seconds
+                sleep(500+(int) (Math.random() * 1000));
+            }
+            catch(InterruptedException e)
+            {
+                // nothing :-D
+            }
+            myAV.postInvalidate();
+        }
+    }*/
 }
