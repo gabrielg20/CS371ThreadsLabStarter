@@ -7,7 +7,7 @@ public class SecondThread extends Thread{
         ourAV = newAV;
     }
     @Override
-    public void run()
+    public  void run()
     {
         while(true) {
             try {

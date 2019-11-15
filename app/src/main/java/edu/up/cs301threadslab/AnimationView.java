@@ -77,7 +77,7 @@ public class AnimationView extends SurfaceView{
 
     /** draw the animations */
     @Override
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         super.draw(canvas);
         for (Animation anim : anims) {
             anim.draw(canvas);
@@ -96,7 +96,7 @@ public class AnimationView extends SurfaceView{
     /** This method is called each time the seekbar's progress changes.  This will always be a
      *  value between 1 and 100.
      */
-    public void progressChange(int newProgress) {
+    public synchronized void progressChange(int newProgress) {
         for(Animation anim: anims) {
             anim.progressChange(newProgress);
         }

@@ -20,6 +20,8 @@ public class MainActivity extends Activity
 
     private AnimationView myAV;
     private SecondThread secondAV;
+    private StarAnimation ourStars;
+    private ThirdThread addStarsThread;
     private Button theButton;
     private SeekBar theSeekBar;
     private boolean ANIMATE;
